@@ -1,0 +1,1 @@
+This note should get a frontmatter block at the top.
