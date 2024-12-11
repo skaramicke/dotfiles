@@ -31,15 +31,27 @@ function prepend() {
   done
 }
 
-port() {
-  if [ -z "$1" ]; then
-    echo "Usage: port <port_number>"
-    return 1
+port() { 
+  if [ -z "$1" ]; then 
+    echo "Usage: port <port_number>" 
+    return 1 
   fi
 
-  sudo lsof -i :"$1" | grep LISTEN
+  sudo lsof -i :"$1" | grep LISTEN | awk '{print $2}' | while read -r pid; do
+    command=$(ps -p "$pid" -o comm=)
+    echo "PID: $pid, Command: $command"
+  done
 }
 
 yq e '.contexts[].name' ~/.kube/config | while read -r cluster; do
   alias $cluster="kubectl --context $cluster"
 done
+
+function chpwd() {
+    if [[ -f .zshrc.local ]]; then
+        source .zshrc.local
+    fi
+    if [[ -f .nvmrc ]]; then
+        nvm use
+    fi
+}
