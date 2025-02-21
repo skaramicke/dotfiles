@@ -1,0 +1,80 @@
+# ~/.config/starship.toml
+
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+# Customize the prompt order
+order = [
+  "username",
+  "hostname",
+  "directory",
+  "git_branch",
+  "git_status",
+  "nodejs",
+  "python",
+  "rust",
+  "golang",
+  "docker_context",
+  "cmd_duration",
+  "line_break",
+  "jobs",
+  "character"
+]
+
+# Customize the directory module
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Customize the git_branch module
+[git_branch]
+symbol = "🌿 "
+
+# Customize the git_status module
+[git_status]
+conflicted = "⚔️ "
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+untracked = "U"
+stashed = "📦"
+modified = "✎"
+staged = "✓"
+renamed = "➜"
+deleted = "🗑"
+
+# Customize the nodejs module
+[nodejs]
+symbol = "⬢ "
+
+# Customize the python module
+[python]
+symbol = "🐍 "
+
+# Customize the rust module
+[rust]
+symbol = "🦀 "
+
+# Customize the golang module
+[golang]
+format = "go [$version](bold cyan) "
+
+# Customize the docker_context module
+[docker_context]
+symbol = "🐳 "
+
+[kubernetes]
+format = '[k8s $context](dimmed green) '
+disabled = false
+contexts = [
+  { context_pattern = "dev.local.cluster.k8s", style = "green", symbol = "💔 " },
+]
