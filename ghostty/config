@@ -1,4 +1,19 @@
-theme=Github-Dark-High-Contrast
-font-family=Monaco
-window-padding-x=7
-window-padding-y=5
+theme = Github-Dark-High-Contrast
+font-family = Monaco
+window-padding-x = 7
+window-padding-y = 5
+
+keybind = super+ctrl+alt+down=resize_split:down,1
+keybind = super+ctrl+alt+left=resize_split:left,1
+keybind = super+ctrl+alt+up=resize_split:up,1
+keybind = super+ctrl+alt+right=resize_split:right,1
+
+keybind = super+ctrl+down=resize_split:down,10
+keybind = super+ctrl+left=resize_split:left,10
+keybind = super+ctrl+up=resize_split:up,10
+keybind = super+ctrl+right=resize_split:right,10
+
+keybind = super+ctrl+shift+down=resize_split:down,100
+keybind = super+ctrl+shift+left=resize_split:left,100
+keybind = super+ctrl+shift+up=resize_split:up,100
+keybind = super+ctrl+shift+right=resize_split:right,100
