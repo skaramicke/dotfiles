@@ -1,3 +1,6 @@
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
-export GOROOT=/usr/local/go
+# Apple Silicon Homebrew first
+export PATH="/opt/homebrew/bin:$PATH"
+# GOPATH (default is $HOME/go; set explicitly for clarity)
+export GOPATH="$HOME/go"
+# Go tools (gopls, etc.)
+export PATH="$PATH:$GOPATH/bin"

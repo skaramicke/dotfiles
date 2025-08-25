@@ -52,6 +52,12 @@ trap '[[ -n "$AI_PORT_FORWARD_PID" ]] && kill "$AI_PORT_FORWARD_PID"' EXIT
 function ai() {
   # join all arguments into a single prompt string
   local prompt="${*}"
+  # replace placeholder {} with stdin content if present
+  if [[ "$prompt" == *"{}"* ]]; then
+    local stdin_data
+    stdin_data=$(cat -)
+    prompt=${prompt//\{\}/$stdin_data}
+  fi
   # determine model dynamically
   local model=$(_ai_get_model)
   # build JSON payload safely with proper substitutions
@@ -74,11 +80,19 @@ function ai() {
 # Requires: jq
 function ais() {
   local prompt="$*"
+  # replace placeholder {} with stdin content if present
+  if [[ "$prompt" == *"{}"* ]]; then
+    local stdin_data
+    stdin_data=$(cat -)
+    prompt=${prompt//\{\}/$stdin_data}
+  fi
   # determine model dynamically
   local model=$(_ai_get_model)
   local payload
   payload=$(printf '{"model":"%s","stream":true,"messages":[{"role":"user","content":"%s"}]}' \
     "$model" "$prompt")
+
+  echo "$payload"
 
   # ensure port-forward tunnel is up
   _ai_start_port_forward

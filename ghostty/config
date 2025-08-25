@@ -17,3 +17,8 @@ keybind = super+ctrl+shift+down=resize_split:down,100
 keybind = super+ctrl+shift+left=resize_split:left,100
 keybind = super+ctrl+shift+up=resize_split:up,100
 keybind = super+ctrl+shift+right=resize_split:right,100
+
+## Wrap clipboard as fenced code and copy (macOS):
+# Tip: With copy-on-select enabled, select text, then press Cmd+Shift+C.
+# This types a command that wraps the clipboard in ``` fences and copies it back.
+keybind = super+shift+c=text:printf '```\\n%s\\n```' "$(pbpaste)" | pbcopy; printf 'Copied fenced block to clipboard\\n'\\n
