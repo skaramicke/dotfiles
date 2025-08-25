@@ -5,13 +5,14 @@
 if [ ! -d ./test ]; then
   mkdir ./test
 fi
-rm ./test/*.md
+# Remove any previous test files without failing if none exist
+find ./test -type f -name "*.md" -delete
 cp ./test_source/*.md ./test/
 
 # Print the code
-echo "# add_md_tag.sh"
+echo "# add_md_tags.sh"
 echo "\`\`\`"
-cat ./scripts/add_md_tag.sh
+cat ./scripts/add_md_tags.sh
 echo "\`\`\`"
 echo ""
 
@@ -32,7 +33,7 @@ for file in ./test/*.md; do
   echo ""
 done
 
-./scripts/add_md_tag.sh ./test/*.md -- test1 test2
+./scripts/add_md_tags.sh ./test/*.md -- test1 test2
 
 echo "# After"
 for file in ./test/*.md; do
