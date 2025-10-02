@@ -54,3 +54,33 @@ vllmlog() {
       # else: ignore
     }'
 }
+
+# function
+status() {
+  if [[ $# -eq 0 ]]; then
+    echo "usage: status [kubectl flags] <elxcluster-name>"
+    return 1
+  fi
+  local -a cmd
+  cmd=(kubectl get elxcluster "$@" -o go-template='{{.metadata.name}}{{"\n"}}  Status: {{if .status.ready}}Ready{{else}}Not ready{{end}}{{"\n"}}  Reason: {{if .status.reason}}{{.status.reason}}{{else}}All is OK{{end}}{{"\n"}}')
+  local cmd_str
+  cmd_str=$(printf '%q ' "${cmd[@]}")
+  watch "${cmd_str% }"
+}
+
+# ensure kubectl zsh completion is loaded
+if ! type _kubectl &>/dev/null; then
+  autoload -Uz compinit && compinit
+  [[ -n "$(command -v kubectl)" ]] && source <(kubectl completion zsh)
+fi
+
+# completion wrapper: pretend the user typed "kubectl get elxcluster ..."
+_status() {
+  local -a savewords; local saveCURRENT
+  savewords=("${words[@]}"); saveCURRENT=$CURRENT
+  words=(kubectl get elxcluster "${words[@]:1}")
+  CURRENT=$(( CURRENT + 2 ))
+  _kubectl
+  words=("${savewords[@]}"); CURRENT=$saveCURRENT
+}
+compdef _status status
