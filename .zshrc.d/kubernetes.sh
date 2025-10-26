@@ -84,3 +84,13 @@ _status() {
   words=("${savewords[@]}"); CURRENT=$saveCURRENT
 }
 compdef _status status
+
+
+# Get versions of operator, capi, capi-kubeadm and capo
+k8s_versions() {
+  echo "Kubernetes Operator: `kubectl -n kubernetes-operator get deployments.apps eko-controller-manager -ojsonpath=\"{.spec.template.spec.containers[0].image}\" | awk -F: '{print $2}'`"
+  echo "CAPI:                `kubectl -n capi-system get deployments.apps capi-controller-manager -ojsonpath=\"{.spec.template.spec.containers[0].image}\" | awk -F: '{print $2}'`"
+  echo "CAPI Kubeadm:        `kubectl -n capi-kubeadm-bootstrap-system get deployments.apps capi-kubeadm-bootstrap-controller-manager -ojsonpath=\"{.spec.template.spec.containers[0].image}\" | awk -F: '{print $2}'`"
+  echo "CAPO:                `kubectl -n capo-system get deployments.apps capo-controller-manager -ojsonpath=\"{.spec.template.spec.containers[0].image}\" | awk -F: '{print $2}'`"
+  echo "Kubernetes version: `kubectl version | grep 'Server Version' | awk -F: '{print $2}'`"
+}
